@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- Bootstrap -->
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<!--script src="bootstrap/js/bootstrap.min.js"></script-->
+	<script src="jquery-1.9.1.min.js"></script>
+
+	<link rel="stylesheet" href="highlight.js/styles/idea.css">
+	<script src="highlight.js/highlight.pack.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="sous-0.1.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+
+    <style>
+        body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="#">SouS v0.1</a>
+            <form class="navbar-form pull-left">
+                <input type="button" value="<" class="span1 btn btn-primary" onclick="jQuery('#source').sourceDemo('prev')">
+                <input id="statenumber" type="text" value="0" style="text-align: center;" class="span1" readonly>
+                <input type="button" value=">" class="span1 btn btn-primary" onclick="jQuery('#source').sourceDemo('next')">
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span4">
+            <div id="leftcol" class="span4">
+                <ol>
+                    <li class="srcdemo1-2">asdfasdf</li>
+                    <li class="srcdemo4-5">htlll</li>
+                </ol>
+            </div>
+        </div>
+        <div class="span8">
+<pre id="source"><code class="coffeescript">
+    window.errorLog = (msg, err = true) ->
+    alert((if err then "ERROR " else " ") + msg)
+
+    unitTests = () ->
+    try
+    <span class="srcdemo1-2 srcdemo4-5">mainEventManager = new EventManager()</span>
+    e1 = new ImmediateEvent(new Date(2013, 2, 20, 10, 15, 0))
+    e2 = new RangeEvent(new Date(2013, 2, 15, 9, 0, 0), new Date(2013, 2, 15, 10, 30, 0))
+    e3 = new RepeatByMonth(e1, new Date(2013, 10, 0))
+    <span class="srcdemo1-2 srcdemo4-5">e4 = new RepeatByRange(e2, new Date(2013, 10, 0), 60 * 60 * 24 * 7)
+    e5 = e3.nextEvent(new Date(2013, 2, 25))
+    e6 = e4.nextEvent(new Date(2013, 2, 16))</span>
+
+    if (e5.baseDate.getDate() is 20) and
+    (e5.baseDate.getMonth() is 3) and
+    (e5.baseDate.getYear() is 113)
+    errorLog("e5 (RepeatByMonth for ImmediateEvent) is correct", false)
+    else
+    errorLog("e5 (RepeatByMonth for ImmediateEvent) is wrong")
+
+    if (e6.baseDate.getDate() is 22) and
+    (e6.baseDate.getMonth() is 2) and
+    (e6.baseDate.getYear() is 113)
+    errorLog("e6 (RepeatByRange for RangeEvent) is correct", false)
+    else
+    errorLog("e6 (RepeatByRange for RangeEvent) is wrong")
+
+    mainEventManager.addEvent(e1)
+    mainEventManager.addEvent(e2)
+    mainEventManager.addEvent(e3)
+    mainEventManager.addEvent(e4)
+    mainEventManager.addEvent(e5)
+    mainEventManager.addEvent(e6)
+
+    mainEventManager.removeEvent(2)
+    mainEventManager.removeEvent(1)
+    mainEventManager.removeEvent(0)
+
+    if mainEventManager.events[0] is e4 and
+    mainEventManager.events[1] is e5 and
+    mainEventManager.events[2] is e6
+    errorLog("EventManager seems to be correct", false)
+    else
+    errorLog("EventManager is wrong")
+    catch err
+    errorLog("#{err}")
+    finally
+
+    unitTests()
+</code></pre>
+        </div>
+    </div>
+</div>
+
+
+<div class="progress progress-success sourceDemo_progress" id="progressbar">
+    <div class="bar" style="width: 0%"></div>
+</div>
+
+<div class="progress progress-success sourceDemo_progress">
+    <div class="bar" style="width: 0%"></div>
+</div>
+
+
+</body>
+</html>
