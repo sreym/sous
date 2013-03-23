@@ -21,4 +21,9 @@ do ( $ = jQuery ) ->
         when 39 then src.sourceDemo('next')
         when 37 then src.sourceDemo('prev')
     )
+
+    $("a[rel^='prettyPhoto']").prettyPhoto(
+      'social_tools': ''
+      'default_height': 400
+    );
   )

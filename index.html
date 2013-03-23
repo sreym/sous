@@ -2,6 +2,8 @@
 <html>
 <head>
 	<title></title>
+    <meta charset="utf-8">
+
 	<!-- Bootstrap -->
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<!--script src="bootstrap/js/bootstrap.min.js"></script-->
@@ -18,6 +20,11 @@
     <script type="text/javascript" src="js/sous-0.1.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 
+    <!-- PrettyPhoto -->
+    <link rel="stylesheet" href="prettyPhoto/css/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+    <script src="prettyPhoto/js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+
+
     <style>
         body {
             padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -30,7 +37,7 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-            <a class="brand" href="#">SouS v0.1</a>
+            <a class="brand" href="#">sous v0.1</a>
             <form class="navbar-form pull-left">
                 <input type="button" value="<" class="span1 btn btn-primary" onclick="jQuery('#source').sourceDemo('prev')">
                 <input id="statenumber" type="text" value="0" style="text-align: center;" class="span1" readonly>
@@ -45,62 +52,57 @@
         <div class="span4">
             <div id="leftcol" class="span4">
                 <ol>
-                    <li class="srcdemo1-2">asdfasdf</li>
-                    <li class="srcdemo4-5">htlll</li>
+                    <li>Создайте пустой проект на Java (<a rel="prettyPhoto[g1]" href="scr/step1.png">шаг 1</a>,
+                        <a rel="prettyPhoto[g1]" href="scr/step2.png">шаг 2</a>,
+                        <a rel="prettyPhoto[g1]" href="scr/step3.png">шаг 3</a>).
+                        С точностью до комментариев получится такой код. Данная программа
+                        <b>компилируется</b>, <b>выполняется</b>, но ничего не делает.</li>
+                    <li class="srcdemo1-">Создаем фрейм (окно) и импортируем класс для фреймов.
+                        После запуска программа всё так же ничего не делает, потому что фрейм добавлен,
+                        не отображен.</li>
+                    <li class="srcdemo2-">Устанавливаем видимость фрейма. После этого, во время запуска
+                        будет появляться пустое окно. По нажатию на кнопку "Закрыть", окно не закрывается.</li>
+                    <li class="srcdemo3-">Добавим стандартное поведение по нажатию на кнопку.</li>
+                    <li class="srcdemo4-">Добавим кнопку. Она не отображается: её нужно добавить на форму.</li>
+                    <li class="srcdemo5-">Добавляем кнопку на форму. Теперь кнопка отображается, но форма при
+                        запуске выглядит <a rel="prettyPhoto[g2]" href="scr/step4.png">странно</a>.</li>
+                    <li class="srcdemo6-">Упаковываем элементы формы таким образом, чтобы форма приняла
+                        <a rel="prettyPhoto[g3]" href="scr/step5.png">нормальный вид</a>.</li>
+                    <li class="srcdemo7-">На кнопку навешиваем обработчик события, который пока что ничего не делает.</li>
+                    <li class="srcdemo8-">Добавим в обработчик события код, который будет выполняться значительное
+                        время (например, вычисление 100000!)</li>
+                    <li class="srcdemo9-">Чтобы видеть завершение выполнения программы добавим
+                        <a rel="prettyPhoto[g4]" href="scr/step6.png">изменене текста</a> на кнопке.</li>
                 </ol>
             </div>
         </div>
         <div class="span8">
-<pre id="source"><code class="coffeescript">
-    window.errorLog = (msg, err = true) ->
-    alert((if err then "ERROR " else " ") + msg)
-
-    unitTests = () ->
-    try
-    <span class="srcdemo1-2 srcdemo4-5">mainEventManager = new EventManager()</span>
-    e1 = new ImmediateEvent(new Date(2013, 2, 20, 10, 15, 0))
-    e2 = new RangeEvent(new Date(2013, 2, 15, 9, 0, 0), new Date(2013, 2, 15, 10, 30, 0))
-    e3 = new RepeatByMonth(e1, new Date(2013, 10, 0))
-    <span class="srcdemo1-2 srcdemo4-5">e4 = new RepeatByRange(e2, new Date(2013, 10, 0), 60 * 60 * 24 * 7)
-    e5 = e3.nextEvent(new Date(2013, 2, 25))
-    e6 = e4.nextEvent(new Date(2013, 2, 16))</span>
-
-    if (e5.baseDate.getDate() is 20) and
-    (e5.baseDate.getMonth() is 3) and
-    (e5.baseDate.getYear() is 113)
-    errorLog("e5 (RepeatByMonth for ImmediateEvent) is correct", false)
-    else
-    errorLog("e5 (RepeatByMonth for ImmediateEvent) is wrong")
-
-    if (e6.baseDate.getDate() is 22) and
-    (e6.baseDate.getMonth() is 2) and
-    (e6.baseDate.getYear() is 113)
-    errorLog("e6 (RepeatByRange for RangeEvent) is correct", false)
-    else
-    errorLog("e6 (RepeatByRange for RangeEvent) is wrong")
-
-    mainEventManager.addEvent(e1)
-    mainEventManager.addEvent(e2)
-    mainEventManager.addEvent(e3)
-    mainEventManager.addEvent(e4)
-    mainEventManager.addEvent(e5)
-    mainEventManager.addEvent(e6)
-
-    mainEventManager.removeEvent(2)
-    mainEventManager.removeEvent(1)
-    mainEventManager.removeEvent(0)
-
-    if mainEventManager.events[0] is e4 and
-    mainEventManager.events[1] is e5 and
-    mainEventManager.events[2] is e6
-    errorLog("EventManager seems to be correct", false)
-    else
-    errorLog("EventManager is wrong")
-    catch err
-    errorLog("#{err}")
-    finally
-
-    unitTests()
+<pre id="source"><code class="java">package swingapplication;
+<span class="srcdemo7-">import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;</span>
+<span class="srcdemo8-">import java.math.BigInteger;</span>
+<span class="srcdemo4-">import javax.swing.JButton;</span>
+<span class="srcdemo1-">import javax.swing.JFrame;</span>
+public class SwingApplication {
+    public static void main(String[] args) {
+        <span class="srcdemo1-">JFrame frame = new JFrame("Swing Application");</span>
+        <span class="srcdemo3-">frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+        <span class="srcdemo4-"><span class="srcdemo7-">final </span>JButton button = new JButton("Click Me!");</span>
+        <span class="srcdemo5-">frame.add(button);</span>
+        <span class="srcdemo7-">button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {</span>
+                <span class="srcdemo8-">BigInteger a = BigInteger.ONE;
+                for(long i = 1; i &lt; 100000; i++) {
+                    a = a.multiply(BigInteger.valueOf(i));
+                }</span>
+                <span class="srcdemo9-">button.setText("Done!");</span>
+            <span class="srcdemo7-">}
+        });</span>
+        <span class="srcdemo6-">frame.pack();</span>
+        <span class="srcdemo2-">frame.setVisible(true);</span>
+    }
+}
 </code></pre>
         </div>
     </div>

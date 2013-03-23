@@ -18,13 +18,17 @@
         p = 100 * num / Math.max($(this).data("slides_off").length, $(this).data("slides_on").length);
         return $("#progressbar").find("div.bar").css("width", "" + p + "%");
       });
-      return $(document).on("keydown", function(e) {
+      $(document).on("keydown", function(e) {
         switch (e.keyCode) {
           case 39:
             return src.sourceDemo('next');
           case 37:
             return src.sourceDemo('prev');
         }
+      });
+      return $("a[rel^='prettyPhoto']").prettyPhoto({
+        'social_tools': '',
+        'default_height': 400
       });
     });
   })(jQuery);

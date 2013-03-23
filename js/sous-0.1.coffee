@@ -121,8 +121,7 @@ do ( $ = jQuery ) ->
               show.apply(el, [it])
               it.addClass("just-showed")
             else
-              if it.hasClass("just-showed")
-                it.removeClass("just-showed")
+              it.removeClass("just-showed")
           else
             if not it.is(":hidden")
               hide.apply(el, [it])
@@ -142,10 +141,9 @@ do ( $ = jQuery ) ->
           if state.indexOf(it) >= 0
             if it.is(":hidden")
               show.apply(el,[it])
-              if statePre.indexOf(it) < 0
-                it.addClass("just-showed")
-              else
-                it.removeClass("just-showed")
+
+            if statePre.indexOf(it) < 0
+              it.addClass("just-showed")
             else
               it.removeClass("just-showed")
           else

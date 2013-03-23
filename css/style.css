@@ -1,5 +1,6 @@
 span.just-showed {
     background-color: #ffc0c3;
+    border-radius: 3px;
 }
 
 div.sourceDemo_progress {
@@ -19,4 +20,7 @@ div.sourceDemo_progress {
 
 #leftcol {
     position: fixed;
+    bottom: 10px;
+    top: 60px;
+    overflow-y: auto;
 }
